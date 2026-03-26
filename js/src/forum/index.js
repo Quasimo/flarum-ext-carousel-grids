@@ -18,11 +18,11 @@ app.initializers.add('quasimo-carousel-grids', () => {
     if (position === 'before_footer') {
       vnode.children.push(carousel);
     } else {
-      const hero = vnode.children.find(c => c && c.attrs && c.attrs.className && c.attrs.className.includes('Hero'));
-      if (hero) {
-        vnode.children.splice(vnode.children.indexOf(hero) + 1, 0, carousel);
+      const heroIndex = vnode.children.findIndex(c => c && c.attrs && c.attrs.className && c.attrs.className.includes('Hero'));
+      if (heroIndex !== -1) {
+        vnode.children.splice(heroIndex + 1, 0, carousel);
       } else {
-        vnode.children.unshift(carousel);
+        vnode.children.push(carousel);
       }
     }
   });
