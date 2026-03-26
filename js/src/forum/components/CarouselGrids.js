@@ -24,8 +24,14 @@ export default class CarouselGrids extends Component {
 
   startAutoScroll() {
     this.interval = setInterval(() => {
-      this.currentIndex = (this.currentIndex + 1) % this.items.length;
+      this.isTransitioning = true;
       m.redraw();
+
+      setTimeout(() => {
+        this.currentIndex = (this.currentIndex + 1) % this.items.length;
+        this.isTransitioning = false;
+        m.redraw();
+      }, 500);
     }, 3000);
   }
 
@@ -40,7 +46,7 @@ export default class CarouselGrids extends Component {
 
     return (
       <div className="CarouselGrids">
-        <div className="CarouselGrids-container" style={`grid-template-columns: repeat(${this.columns}, 1fr)`}>
+        <div className={`CarouselGrids-container ${this.isTransitioning ? 'is-transitioning' : ''}`} style={`grid-template-columns: repeat(${this.columns}, 1fr)`}>
           {visibleItems.map(item => this.renderItem(item))}
         </div>
       </div>
