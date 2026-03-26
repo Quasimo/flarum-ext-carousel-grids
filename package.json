@@ -1,5 +1,5 @@
 {
-  "name": "@quasimo/flarum-ext-carousel-grids",
+  "name": "flarum-ext-carousel-grids",
   "version": "1.0.0",
   "private": true,
   "scripts": {
