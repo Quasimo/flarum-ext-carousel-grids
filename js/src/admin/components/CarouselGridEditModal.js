@@ -37,6 +37,11 @@ export default class CarouselGridEditModal extends Modal {
           </div>
 
           <div className="Form-group">
+            <label>{app.translator.trans('carousel-grids.admin.link')}</label>
+            <input className="FormControl" value={this.link} oninput={(e) => (this.link = e.target.value)} />
+          </div>
+
+          <div className="Form-group">
             <label>{app.translator.trans('carousel-grids.admin.background_image')}</label>
             <input className="FormControl" value={this.backgroundImage} oninput={(e) => (this.backgroundImage = e.target.value)} />
           </div>
@@ -44,11 +49,6 @@ export default class CarouselGridEditModal extends Modal {
           <div className="Form-group">
             <label>{app.translator.trans('carousel-grids.admin.logo')}</label>
             <input className="FormControl" value={this.logo} oninput={(e) => (this.logo = e.target.value)} />
-          </div>
-
-          <div className="Form-group">
-            <label>{app.translator.trans('carousel-grids.admin.link')}</label>
-            <input className="FormControl" value={this.link} oninput={(e) => (this.link = e.target.value)} />
           </div>
 
           <div className="Form-group">
@@ -61,7 +61,7 @@ export default class CarouselGridEditModal extends Modal {
 
           <div className="Form-group">
             <Button className="Button Button--primary" type="submit">
-              {app.translator.trans('core.admin.basics.submit_button')}
+              {app.translator.trans('carousel-grids.admin.save_button')}
             </Button>
           </div>
         </div>
