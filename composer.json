@@ -1,0 +1,25 @@
+{
+  "name": "quasimo/flarum-ext-carousel-grids",
+  "description": "Display carousel grids with background images, logos, and auto-scroll",
+  "type": "flarum-extension",
+  "license": "MIT",
+  "require": {
+    "flarum/core": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Quasimo\\CarouselGrids\\": "src/"
+    }
+  },
+  "extra": {
+    "flarum-extension": {
+      "title": "Carousel Grids",
+      "category": "feature",
+      "icon": {
+        "name": "fas fa-th-large",
+        "color": "#3498db",
+        "backgroundColor": "#ecf0f1"
+      }
+    }
+  }
+}
