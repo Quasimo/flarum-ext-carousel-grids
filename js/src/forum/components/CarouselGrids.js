@@ -35,6 +35,19 @@ export default class CarouselGrids extends Component {
     }, 5000);
   }
 
+  pauseAutoScroll() {
+    if (this.interval) {
+      clearInterval(this.interval);
+      this.interval = null;
+    }
+  }
+
+  resumeAutoScroll() {
+    if (!this.interval && this.items.length > this.columns) {
+      this.startAutoScroll();
+    }
+  }
+
   view() {
     if (!this.items.length) return null;
 
@@ -45,7 +58,7 @@ export default class CarouselGrids extends Component {
     }
 
     return (
-      <div className="CarouselGrids">
+      <div className="CarouselGrids" onmouseenter={() => this.pauseAutoScroll()} onmouseleave={() => this.resumeAutoScroll()}>
         <div className={`CarouselGrids-container ${this.isTransitioning ? 'is-transitioning' : ''}`} style={`grid-template-columns: repeat(${this.columns}, 1fr)`}>
           {visibleItems.map(item => this.renderItem(item))}
         </div>
