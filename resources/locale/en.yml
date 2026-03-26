@@ -2,6 +2,12 @@
   "carousel-grids": {
     "admin": {
       "columns_label": "Columns per row (desktop)",
+      "position_label": "Display Position",
+      "position_after_hero": "After Hero Section",
+      "position_before_footer": "Before Footer",
+      "scope_label": "Display Scope",
+      "scope_homepage": "Homepage Only",
+      "scope_all": "All Pages",
       "items_label": "Manage Grid Items",
       "manage_items": "Manage Items",
       "add_item": "Add Item",

@@ -21,5 +21,7 @@ return [
         })
         ->serializeToForum('carouselGrids.columns', 'carousel_grids_columns', function ($value) {
             return (int) ($value ?: 3);
-        }),
+        })
+        ->serializeToForum('carouselGrids.position', 'carousel_grids_position')
+        ->serializeToForum('carouselGrids.scope', 'carousel_grids_scope'),
 ];

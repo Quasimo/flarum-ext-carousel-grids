@@ -2,6 +2,12 @@
   "carousel-grids": {
     "admin": {
       "columns_label": "每行列数（桌面端）",
+      "position_label": "显示位置",
+      "position_after_hero": "Hero 区域下方",
+      "position_before_footer": "页脚上方",
+      "scope_label": "显示范围",
+      "scope_homepage": "仅首页",
+      "scope_all": "全站",
       "items_label": "管理网格项目",
       "manage_items": "管理项目",
       "add_item": "添加项目",

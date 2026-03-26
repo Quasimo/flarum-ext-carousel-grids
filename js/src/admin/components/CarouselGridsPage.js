@@ -8,6 +8,8 @@ export default class CarouselGridsPage extends ExtensionPage {
     super.oninit(vnode);
     this.items = this.getItems();
     this.columns = app.data.settings.carousel_grids_columns || '3';
+    this.position = app.data.settings.carousel_grids_position || 'after_hero';
+    this.scope = app.data.settings.carousel_grids_scope || 'homepage';
   }
 
   getItems() {
@@ -37,6 +39,14 @@ export default class CarouselGridsPage extends ExtensionPage {
     });
   }
 
+  saveSetting(key, value) {
+    app.request({
+      method: 'POST',
+      url: app.forum.attribute('apiUrl') + '/settings',
+      body: { [key]: value },
+    });
+  }
+
   content() {
     return (
       <div className="CarouselGridsPage">
@@ -55,6 +65,22 @@ export default class CarouselGridsPage extends ExtensionPage {
                   this.saveColumns();
                 }}
               />
+            </div>
+
+            <div className="Form-group">
+              <label>{app.translator.trans('carousel-grids.admin.position_label')}</label>
+              <select className="FormControl" value={this.position} onchange={(e) => { this.position = e.target.value; this.saveSetting('carousel_grids_position', this.position); }}>
+                <option value="after_hero">{app.translator.trans('carousel-grids.admin.position_after_hero')}</option>
+                <option value="before_footer">{app.translator.trans('carousel-grids.admin.position_before_footer')}</option>
+              </select>
+            </div>
+
+            <div className="Form-group">
+              <label>{app.translator.trans('carousel-grids.admin.scope_label')}</label>
+              <select className="FormControl" value={this.scope} onchange={(e) => { this.scope = e.target.value; this.saveSetting('carousel_grids_scope', this.scope); }}>
+                <option value="homepage">{app.translator.trans('carousel-grids.admin.scope_homepage')}</option>
+                <option value="all">{app.translator.trans('carousel-grids.admin.scope_all')}</option>
+              </select>
             </div>
 
             <div className="Form-group">
