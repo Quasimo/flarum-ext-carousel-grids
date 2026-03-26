@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1] - 2026-03-27
+
+### Fixed
+- Mobile responsiveness: Now displays 1 item on mobile (≤768px) and 2 items on tablet (769-1024px)
+- Carousel now correctly shows only visible columns instead of stacking all items
+
+### Added
+- Pause carousel animation on hover
+- Responsive column adjustment based on screen size
+
 ## [1.0.0] - 2026-03-26
 
 ### Added

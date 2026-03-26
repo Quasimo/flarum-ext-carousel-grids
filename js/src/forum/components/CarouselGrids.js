@@ -8,11 +8,24 @@ export default class CarouselGrids extends Component {
     this.columns = app.forum.attribute('carouselGrids.columns') || 3;
     this.currentIndex = 0;
     this.interval = null;
+    this.updateVisibleColumns();
+    window.addEventListener('resize', () => this.updateVisibleColumns());
+  }
+
+  updateVisibleColumns() {
+    const width = window.innerWidth;
+    if (width <= 768) {
+      this.visibleColumns = 1;
+    } else if (width <= 1024) {
+      this.visibleColumns = 2;
+    } else {
+      this.visibleColumns = this.columns;
+    }
   }
 
   oncreate(vnode) {
     super.oncreate(vnode);
-    if (this.items.length > this.columns) {
+    if (this.items.length > this.visibleColumns) {
       this.startAutoScroll();
     }
   }
@@ -43,7 +56,7 @@ export default class CarouselGrids extends Component {
   }
 
   resumeAutoScroll() {
-    if (!this.interval && this.items.length > this.columns) {
+    if (!this.interval && this.items.length > this.visibleColumns) {
       this.startAutoScroll();
     }
   }
@@ -52,14 +65,14 @@ export default class CarouselGrids extends Component {
     if (!this.items.length) return null;
 
     const visibleItems = [];
-    for (let i = 0; i < this.columns; i++) {
+    for (let i = 0; i < this.visibleColumns; i++) {
       const index = (this.currentIndex + i) % this.items.length;
       visibleItems.push(this.items[index]);
     }
 
     return (
       <div className="CarouselGrids" onmouseenter={() => this.pauseAutoScroll()} onmouseleave={() => this.resumeAutoScroll()}>
-        <div className={`CarouselGrids-container ${this.isTransitioning ? 'is-transitioning' : ''}`} style={`grid-template-columns: repeat(${this.columns}, 1fr)`}>
+        <div className={`CarouselGrids-container ${this.isTransitioning ? 'is-transitioning' : ''}`} style={`grid-template-columns: repeat(${this.visibleColumns}, 1fr)`}>
           {visibleItems.map(item => this.renderItem(item))}
         </div>
       </div>
