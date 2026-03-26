@@ -6,8 +6,8 @@ export default class CarouselGridEditModal extends Modal {
   oninit(vnode) {
     super.oninit(vnode);
     const item = this.attrs.item || {};
-    this.title = item.title || '';
-    this.description = item.description || '';
+    this.itemTitle = item.title || '';
+    this.itemDescription = item.description || '';
     this.backgroundImage = item.backgroundImage || '';
     this.logo = item.logo || '';
     this.link = item.link || '';
@@ -28,12 +28,12 @@ export default class CarouselGridEditModal extends Modal {
         <div className="Form">
           <div className="Form-group">
             <label>{app.translator.trans('carousel-grids.admin.title')}</label>
-            <input className="FormControl" value={this.title} oninput={(e) => (this.title = e.target.value)} />
+            <input className="FormControl" value={this.itemTitle} oninput={(e) => (this.itemTitle = e.target.value)} />
           </div>
 
           <div className="Form-group">
             <label>{app.translator.trans('carousel-grids.admin.description')}</label>
-            <textarea className="FormControl" value={this.description} oninput={(e) => (this.description = e.target.value)} />
+            <textarea className="FormControl" value={this.itemDescription} oninput={(e) => (this.itemDescription = e.target.value)} />
           </div>
 
           <div className="Form-group">
@@ -72,8 +72,8 @@ export default class CarouselGridEditModal extends Modal {
   onsubmit(e) {
     e.preventDefault();
     this.attrs.onsubmit({
-      title: this.title,
-      description: this.description,
+      title: this.itemTitle,
+      description: this.itemDescription,
       backgroundImage: this.backgroundImage,
       logo: this.logo,
       link: this.link,
