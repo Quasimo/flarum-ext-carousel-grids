@@ -21,6 +21,7 @@
       "position_top": "Top",
       "position_left": "Left",
       "save_button": "Save",
+      "saved_message": "Settings saved successfully",
       "delete_confirmation": "Are you sure you want to delete this item?"
     }
   }

@@ -27,7 +27,7 @@ export default class CarouselGridsPage extends ExtensionPage {
       url: app.forum.attribute('apiUrl') + '/settings',
       body: { carousel_grids_items: JSON.stringify(this.items) },
     }).then(() => {
-      app.alerts.show({ type: 'success' }, app.translator.trans('core.admin.basics.saved_message'));
+      app.alerts.show({ type: 'success' }, app.translator.trans('carousel-grids.admin.saved_message'));
     });
   }
 

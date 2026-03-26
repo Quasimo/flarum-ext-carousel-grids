@@ -21,6 +21,7 @@
       "position_top": "顶部",
       "position_left": "左侧",
       "save_button": "保存",
+      "saved_message": "设置已保存",
       "delete_confirmation": "确定要删除此项目吗？"
     }
   }
