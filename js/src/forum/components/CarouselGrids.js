@@ -32,7 +32,7 @@ export default class CarouselGrids extends Component {
         this.isTransitioning = false;
         m.redraw();
       }, 500);
-    }, 3000);
+    }, 5000);
   }
 
   view() {

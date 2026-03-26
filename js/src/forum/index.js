@@ -1,29 +1,32 @@
 import app from 'flarum/forum/app';
-import { extend } from 'flarum/common/extend';
+import { extend, override } from 'flarum/common/extend';
 import IndexPage from 'flarum/forum/components/IndexPage';
 import DiscussionPage from 'flarum/forum/components/DiscussionPage';
 import CarouselGrids from './components/CarouselGrids';
 
 app.initializers.add('quasimo-carousel-grids', () => {
+  override(IndexPage.prototype, 'hero', function(original) {
+    const items = app.forum.attribute('carouselGrids.items');
+    const position = app.forum.attribute('carouselGrids.position') || 'after_hero';
+
+    if (position === 'after_hero' && items && items.length > 0) {
+      return [
+        original(),
+        m('.container', m(CarouselGrids))
+      ];
+    }
+    return original();
+  });
+
   extend(IndexPage.prototype, 'view', function(vnode) {
     const items = app.forum.attribute('carouselGrids.items');
     if (!items || items.length === 0) return;
 
-    const scope = app.forum.attribute('carouselGrids.scope') || 'homepage';
-    if (scope !== 'homepage' && scope !== 'all') return;
-
     const position = app.forum.attribute('carouselGrids.position') || 'after_hero';
-    const carousel = m('.container', m(CarouselGrids));
 
     if (position === 'before_footer') {
+      const carousel = m('.container', m(CarouselGrids));
       vnode.children.push(carousel);
-    } else {
-      const heroIndex = vnode.children.findIndex(c => c && c.attrs && c.attrs.className && c.attrs.className.includes('Hero'));
-      if (heroIndex !== -1) {
-        vnode.children.splice(heroIndex + 1, 0, carousel);
-      } else {
-        vnode.children.push(carousel);
-      }
     }
   });
 
