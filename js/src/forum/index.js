@@ -1,41 +1,47 @@
 import app from 'flarum/forum/app';
 import { extend } from 'flarum/common/extend';
 import IndexPage from 'flarum/forum/components/IndexPage';
-import Page from 'flarum/common/components/Page';
+import DiscussionPage from 'flarum/forum/components/DiscussionPage';
 import CarouselGrids from './components/CarouselGrids';
 
 app.initializers.add('quasimo-carousel-grids', () => {
-  const shouldDisplay = (page) => {
-    const scope = app.forum.attribute('carouselGrids.scope') || 'homepage';
-    if (scope === 'homepage') {
-      return page instanceof IndexPage;
-    }
-    return true;
-  };
-
-  extend(Page.prototype, 'view', function (vnode) {
-    if (!shouldDisplay(this)) return;
-
+  const addCarousel = function() {
     const items = app.forum.attribute('carouselGrids.items');
     if (!items || items.length === 0) return;
 
+    const scope = app.forum.attribute('carouselGrids.scope') || 'homepage';
+    const isHomepage = this instanceof IndexPage;
+
+    if (scope === 'homepage' && !isHomepage) return;
+
     const position = app.forum.attribute('carouselGrids.position') || 'after_hero';
-    const carousel = <div className="container"><CarouselGrids /></div>;
+    const carousel = m('.container', m(CarouselGrids));
 
     if (position === 'before_footer') {
-      const footer = vnode.children.find(child => child && child.attrs && child.attrs.id === 'footer');
-      if (footer) {
-        const footerIndex = vnode.children.indexOf(footer);
-        vnode.children.splice(footerIndex, 0, carousel);
-      }
-    } else {
-      const hero = vnode.children.find(child => child && child.tag === 'header' && child.attrs && child.attrs.className && child.attrs.className.includes('Hero'));
+      return m('.CarouselGrids-wrapper', { style: 'margin-top: 20px;' }, carousel);
+    }
+    return carousel;
+  };
+
+  extend(IndexPage.prototype, 'view', function(vnode) {
+    const carousel = addCarousel.call(this);
+    if (carousel) {
+      const hero = vnode.children.find(c => c && c.attrs && c.attrs.className && c.attrs.className.includes('Hero'));
       if (hero) {
-        const heroIndex = vnode.children.indexOf(hero);
-        vnode.children.splice(heroIndex + 1, 0, carousel);
+        vnode.children.splice(vnode.children.indexOf(hero) + 1, 0, carousel);
       } else {
         vnode.children.unshift(carousel);
       }
+    }
+  });
+
+  extend(DiscussionPage.prototype, 'view', function(vnode) {
+    const scope = app.forum.attribute('carouselGrids.scope');
+    if (scope !== 'all') return;
+
+    const carousel = addCarousel.call(this);
+    if (carousel) {
+      vnode.children.unshift(carousel);
     }
   });
 });

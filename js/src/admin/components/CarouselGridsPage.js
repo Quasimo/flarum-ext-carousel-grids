@@ -53,6 +53,17 @@ export default class CarouselGridsPage extends ExtensionPage {
         <div className="container">
           <div className="Form">
             <div className="Form-group">
+              <label>{app.translator.trans('carousel-grids.admin.items_label')}</label>
+              <Button className="Button Button--primary" onclick={() => this.addItem()}>
+                {app.translator.trans('carousel-grids.admin.add_item')}
+              </Button>
+            </div>
+
+            <div className="CarouselGridsPage-items">
+              {this.items.map((item, index) => this.renderItem(item, index))}
+            </div>
+
+            <div className="Form-group">
               <label>{app.translator.trans('carousel-grids.admin.columns_label')}</label>
               <input
                 className="FormControl"
@@ -81,17 +92,6 @@ export default class CarouselGridsPage extends ExtensionPage {
                 <option value="homepage">{app.translator.trans('carousel-grids.admin.scope_homepage')}</option>
                 <option value="all">{app.translator.trans('carousel-grids.admin.scope_all')}</option>
               </select>
-            </div>
-
-            <div className="Form-group">
-              <label>{app.translator.trans('carousel-grids.admin.items_label')}</label>
-              <Button className="Button Button--primary" onclick={() => this.addItem()}>
-                {app.translator.trans('carousel-grids.admin.add_item')}
-              </Button>
-            </div>
-
-            <div className="CarouselGridsPage-items">
-              {this.items.map((item, index) => this.renderItem(item, index))}
             </div>
           </div>
         </div>
