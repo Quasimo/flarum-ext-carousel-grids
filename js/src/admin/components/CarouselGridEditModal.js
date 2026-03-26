@@ -27,7 +27,7 @@ export default class CarouselGridEditModal extends Modal {
       <div className="Modal-body">
         <div className="Form">
           <div className="Form-group">
-            <label>{app.translator.trans('carousel-grids.admin.title')}</label>
+            <label>{app.translator.trans('carousel-grids.admin.title')} *</label>
             <input className="FormControl" value={this.itemTitle} oninput={(e) => (this.itemTitle = e.target.value)} />
           </div>
 
