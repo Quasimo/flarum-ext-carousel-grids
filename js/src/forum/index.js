@@ -5,27 +5,19 @@ import DiscussionPage from 'flarum/forum/components/DiscussionPage';
 import CarouselGrids from './components/CarouselGrids';
 
 app.initializers.add('quasimo-carousel-grids', () => {
-  const addCarousel = function() {
+  extend(IndexPage.prototype, 'view', function(vnode) {
     const items = app.forum.attribute('carouselGrids.items');
     if (!items || items.length === 0) return;
 
     const scope = app.forum.attribute('carouselGrids.scope') || 'homepage';
-    const isHomepage = this instanceof IndexPage;
-
-    if (scope === 'homepage' && !isHomepage) return;
+    if (scope !== 'homepage' && scope !== 'all') return;
 
     const position = app.forum.attribute('carouselGrids.position') || 'after_hero';
     const carousel = m('.container', m(CarouselGrids));
 
     if (position === 'before_footer') {
-      return m('.CarouselGrids-wrapper', { style: 'margin-top: 20px;' }, carousel);
-    }
-    return carousel;
-  };
-
-  extend(IndexPage.prototype, 'view', function(vnode) {
-    const carousel = addCarousel.call(this);
-    if (carousel) {
+      vnode.children.push(carousel);
+    } else {
       const hero = vnode.children.find(c => c && c.attrs && c.attrs.className && c.attrs.className.includes('Hero'));
       if (hero) {
         vnode.children.splice(vnode.children.indexOf(hero) + 1, 0, carousel);
@@ -39,9 +31,10 @@ app.initializers.add('quasimo-carousel-grids', () => {
     const scope = app.forum.attribute('carouselGrids.scope');
     if (scope !== 'all') return;
 
-    const carousel = addCarousel.call(this);
-    if (carousel) {
-      vnode.children.unshift(carousel);
-    }
+    const items = app.forum.attribute('carouselGrids.items');
+    if (!items || items.length === 0) return;
+
+    const carousel = m('.container', m(CarouselGrids));
+    vnode.children.unshift(carousel);
   });
 });

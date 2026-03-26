@@ -39,6 +39,20 @@ export default class CarouselGridsPage extends ExtensionPage {
     });
   }
 
+  saveSettings() {
+    app.request({
+      method: 'POST',
+      url: app.forum.attribute('apiUrl') + '/settings',
+      body: {
+        carousel_grids_columns: this.columns,
+        carousel_grids_position: this.position,
+        carousel_grids_scope: this.scope,
+      },
+    }).then(() => {
+      app.alerts.show({ type: 'success' }, app.translator.trans('carousel-grids.admin.saved_message'));
+    });
+  }
+
   saveSetting(key, value) {
     app.request({
       method: 'POST',
@@ -73,14 +87,13 @@ export default class CarouselGridsPage extends ExtensionPage {
                 value={this.columns}
                 onchange={(e) => {
                   this.columns = e.target.value;
-                  this.saveColumns();
                 }}
               />
             </div>
 
             <div className="Form-group">
               <label>{app.translator.trans('carousel-grids.admin.position_label')}</label>
-              <select className="FormControl" value={this.position} onchange={(e) => { this.position = e.target.value; this.saveSetting('carousel_grids_position', this.position); }}>
+              <select className="FormControl" value={this.position} onchange={(e) => { this.position = e.target.value; }}>
                 <option value="after_hero">{app.translator.trans('carousel-grids.admin.position_after_hero')}</option>
                 <option value="before_footer">{app.translator.trans('carousel-grids.admin.position_before_footer')}</option>
               </select>
@@ -88,10 +101,16 @@ export default class CarouselGridsPage extends ExtensionPage {
 
             <div className="Form-group">
               <label>{app.translator.trans('carousel-grids.admin.scope_label')}</label>
-              <select className="FormControl" value={this.scope} onchange={(e) => { this.scope = e.target.value; this.saveSetting('carousel_grids_scope', this.scope); }}>
+              <select className="FormControl" value={this.scope} onchange={(e) => { this.scope = e.target.value; }}>
                 <option value="homepage">{app.translator.trans('carousel-grids.admin.scope_homepage')}</option>
                 <option value="all">{app.translator.trans('carousel-grids.admin.scope_all')}</option>
               </select>
+            </div>
+
+            <div className="Form-group">
+              <Button className="Button Button--primary" onclick={() => this.saveSettings()}>
+                {app.translator.trans('carousel-grids.admin.save_settings')}
+              </Button>
             </div>
           </div>
         </div>
