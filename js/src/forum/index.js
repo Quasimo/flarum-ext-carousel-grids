@@ -1,7 +1,7 @@
-import app from 'flarum/app';
-import { extend, override } from 'flarum/extend';
-import IndexPage from 'flarum/components/IndexPage';
-import DiscussionPage from 'flarum/components/DiscussionPage';
+import app from 'flarum/forum/app';
+import { extend, override } from 'flarum/common/extend';
+import IndexPage from 'flarum/forum/components/IndexPage';
+import DiscussionPage from 'flarum/forum/components/DiscussionPage';
 import CarouselGrids from './components/CarouselGrids';
 
 app.initializers.add('quasimo-carousel-grids', () => {
