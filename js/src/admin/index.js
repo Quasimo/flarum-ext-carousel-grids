@@ -1,4 +1,3 @@
-import app from 'flarum/admin/app';
 import CarouselGridsPage from './components/CarouselGridsPage';
 
 app.initializers.add('quasimo-carousel-grids', () => {
