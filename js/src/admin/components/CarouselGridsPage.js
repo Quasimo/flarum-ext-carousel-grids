@@ -1,5 +1,5 @@
-import app from 'flarum/admin/app';
-import ExtensionPage from 'flarum/admin/components/ExtensionPage';
+import app from 'flarum/common/app';
+import ExtensionPage from 'flarum/common/components/ExtensionPage';
 import Button from 'flarum/common/components/Button';
 import CarouselGridEditModal from './CarouselGridEditModal';
 

@@ -1,5 +1,5 @@
 import Component from 'flarum/common/Component';
-import app from 'flarum/forum/app';
+import app from 'flarum/common/app';
 
 export default class CarouselGrids extends Component {
   oninit(vnode) {
