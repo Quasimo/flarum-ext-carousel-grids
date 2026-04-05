@@ -1,6 +1,6 @@
-import app from 'flarum/app';
-import ExtensionPage from 'flarum/components/ExtensionPage';
-import Button from 'flarum/components/Button';
+import app from 'flarum/admin/app';
+import ExtensionPage from 'flarum/admin/components/ExtensionPage';
+import Button from 'flarum/common/components/Button';
 import CarouselGridEditModal from './CarouselGridEditModal';
 
 export default class CarouselGridsPage extends ExtensionPage {
